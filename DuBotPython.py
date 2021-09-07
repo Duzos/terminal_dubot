@@ -134,6 +134,22 @@ def info():
     print("Created in Python")
     print("Created by James Hall (Duzo)")
 
+def help():
+    print("Help:")
+    print("Shutdown: Shuts this down")
+    print("Restart: Restarts this")
+    print("Say: Repeats your message")
+    print("CoinFlip: Flips a coin")
+    print("Dice: Rolls a dice")
+    print("RPS: Play rock paper scissors")
+    print("NGuess: Play a number guessing game")
+    print("Gay: Tells you how gay you are")
+    print("YN: Answers your questions with Yes or No")
+    print("Ball: The 8ball answers your questions.")
+    print("Info: Info on this thing")
+    print("Help: This command")
+
+
 def main():
     print("What's the command?")
     command = input().lower()
@@ -158,7 +174,10 @@ def main():
         yn()
     elif command == "ball":
         ball()
-
+    elif command == "info":
+        info()
+    elif command == "help":
+        help()
 
 #The loop:
 
