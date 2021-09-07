@@ -131,8 +131,10 @@ def ball():
     print(f"Answer: {answer}")
 
 def info():
+    print("Based off of DuBot (https://discord.com/api/oauth2/authorize?client_id=865190020179296267&permissions=93184&scope=bot)")
     print("Created in Python")
     print("Created by James Hall (Duzo)")
+
 
 def help():
     print("Help:")
