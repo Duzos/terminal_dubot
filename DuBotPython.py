@@ -136,6 +136,41 @@ def info():
     print("Created in Python")
     print("Created by James Hall (Duzo)")
 
+def spaceWeights():
+    print("What's your weight in KG?")
+    weight = (int(input()) / 9.81)
+    print()
+
+    print("What planet?")
+    planet = input().lower()
+
+    if planet == "moon":
+        print(f"Your weight on the Moon is {round(weight * 1.622)} kg")
+        return
+    elif planet == "mars":
+        print(f"Your weight on Mars is {round(weight * 3.711)} kg")
+        return
+    elif planet == "venus":
+        print(f"Your weight on Venus is {round(weight * 8.87)} kg")
+        return
+    elif planet == "mercury":
+        print(f"Your weight on Mercury is {round(weight * 3.7)} kg")
+        return
+    elif planet == "saturn":
+        print(f"Your weight on Saturn is {round(weight * 10.44)} kg")
+        return
+    elif planet == "neptune":
+        print(f"Your weight on Neptune is {round(weight * 11.15)} kg")
+        return
+    elif planet == "uranus":
+        print(f"Your weight on Uranus is {round(weight * 8.69)} kg")
+        return
+    elif planet == "jupiter":
+        print(f"Your weight on Jupiter is {round(weight * 24.79)} kg")
+        return
+    
+
+
 def help():
     print("Help:")
     print("Shutdown: Shuts this down")
@@ -149,6 +184,7 @@ def help():
     print("YN: Answers your questions with Yes or No")
     print("Ball: The 8ball answers your questions.")
     print("Info: Info on this thing")
+    print("SpaceWeights: Gives your weight on other planets.")
     print("Help: This command")
 
 
@@ -179,6 +215,8 @@ def main():
         ball()
     elif command == "info":
         info()
+    elif command == "spaceweights":
+        spaceWeights()
     elif command == "help":
         help()
 
