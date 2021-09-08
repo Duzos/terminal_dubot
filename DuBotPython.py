@@ -2,13 +2,35 @@
 import os
 import sys
 import random
-
-from discord.ext.commands.errors import CommandNotFound
+import json
 
 #When its run
-print("Welcome to Dubot but without the bot part.")
-print("Press enter to begin.")
-input()
+with open('data.json','r') as f:
+    runCheck = json.load(f)
+
+if runCheck["firstRun"] == 0:
+    name = runCheck["name"]
+    print(f"Welcome back to DuBot, {name}")
+else:
+    runCheck["firstRun"] = 1
+    
+    print("Welcome to DuBot.")
+    print("It appears this is your first time running this file.")
+    print("What is your name?")
+    name = input()
+
+    runCheck["name"] = name
+    runCheck["firstRun"] = 0
+    with open('data.json', 'w') as f:
+        json.dump(runCheck, f, indent=4)
+
+    print("To get a list of commands type 'help'.")
+    print()
+
+    
+# print("Welcome to Dubot but without the bot part.")
+# print("Press enter to begin.")
+# input()
 
 #Defining Functions:
 
@@ -169,7 +191,34 @@ def spaceWeights():
         print(f"Your weight on Jupiter is {round(weight * 24.79)} kg")
         return
     
+def changeName():
+    with open('data.json','r') as f:
+        nameChange = json.load(f)
 
+    print("What is your new name?")
+    newName = input()
+    nameChange["name"] = newName
+    with open('data.json', 'w') as f:
+        json.dump(nameChange, f, indent=4)
+    print("Complete.")
+
+def dataReset():
+    with open('data.json','r') as f:
+        resetData = json.load(f)
+    
+    print("Are you sure you wish to reset all data?")
+    dataChoice = input().lower()
+    if dataChoice == "yes":
+        resetData["firstRun"] = 1
+        resetData["name"] = None
+        with open('data.json','w') as f:
+            json.dump(resetData, f, indent=4)
+        print("Data reset complete.")
+        restart()
+    else:
+        print("Cancelling data reset.")
+        return
+    
 
 def help():
     print("Help:")
@@ -185,12 +234,14 @@ def help():
     print("Ball: The 8ball answers your questions.")
     print("Info: Info on this thing")
     print("SpaceWeights: Gives your weight on other planets.")
+    print("ChangeName: Let's you change your name.")
+    print("DataReset: Resets all your data.")
     print("Help: This command")
 
 
 def main():
     print()
-    print("What's the command?")
+    #print("What's the command?")
     command = input().lower()
     
     if command == "shutdown":
@@ -217,6 +268,10 @@ def main():
         info()
     elif command == "spaceweights":
         spaceWeights()
+    elif command == "changename":
+        changeName()
+    elif command == "datareset":
+        dataReset()
     elif command == "help":
         help()
 
