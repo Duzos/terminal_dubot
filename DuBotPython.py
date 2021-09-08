@@ -88,7 +88,7 @@ def nguess():
         return
 
 def gay():
-    randomGay = random.randint(1,100)
+    randomGay = random.randint(0,100)
     print(f"You are {randomGay}% gay.")
 
 def yn():
@@ -153,6 +153,7 @@ def help():
 
 
 def main():
+    print()
     print("What's the command?")
     command = input().lower()
     
