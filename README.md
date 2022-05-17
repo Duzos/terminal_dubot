@@ -1,3 +1,5 @@
 # dubotPython
-this is my DuBot discord bot except just in the terminal.
-Based off of https://discord.com/api/oauth2/authorize?client_id=865190020179296267&permissions=93184&scope=bot
+This is a little python file you can run when your bored somewhere and want something to do
+running SETUP.bat isnt necessary but is recommended if you want everything to work (rename run_setup.json to data.json if you choose not too though!)
+if you're getting crashes id recommend remove the bits ive highlighted in comments
+:)
