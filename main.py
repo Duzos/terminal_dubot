@@ -9,19 +9,17 @@ import time
 with open('data.json','r') as f:
     data = json.load(f)
 
-if data["firstRun"] == 0:
+if data["firstRun"] == False:
     name = data["name"]
     print(f"[BOT]: Welcome back to DuBot, {name}")
 else:
-    data["firstRun"] = 1
-    
     print("[BOT]: Welcome to DuBot.")
     print("[BOT: It appears this is your first time running this file.")
     print("[BOT]: What is your name?")
     name = input()
 
     data["name"] = name
-    data["firstRun"] = 0
+    data["firstRun"] = False
     with open('data.json', 'w') as f:
         json.dump(data, f, indent=4)
 
@@ -105,6 +103,16 @@ def dice():
 
 def idea():
     print('if you have any ideas for this program, please message me on Discord at:\nDuzo#1010\n:)')
+
+def list_data():
+    firstRun = data['firstRun']
+    username = data['name']
+    compute_line('Processing data',1) # this doesnt do anything except do the animation i like
+    print('Data:')
+    compute_dots('First run : ',0.25) # once again, nothing just i like it
+    print(f'First run : {firstRun}')
+    compute_dots('Name : ',0.5) # you get the idea by now hopefully
+    print(f'Name : {username}')
 
 def rps():
     choices = ['rock','paper','scissors']
