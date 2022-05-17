@@ -3,6 +3,7 @@ import os
 import sys
 import random
 import json
+import time
 
 #When its run
 with open('data.json','r') as f:
@@ -45,7 +46,23 @@ def api_test():
     print(f'{choiceType}\n{choiceQuestion}\nID: {choiceID} | Rating: {choiceRating}')
 # ok stop removing code before it breaks ty
 
+# some neat little computing animations, dunno why i added them but i like them and they look cool so yeah. if you want to add them anywhere yourself just call the function.
+def compute_dots(text: str = 'Computing',sleep_time: str = 1):
+    for x in range (0,5):  
+        b = f"{text}" + "." * x
+        print (b, end="\r")
+        time.sleep(sleep_time)
 
+def compute_line(text: str = 'Computing',sleep_time: str = 1):
+    line_choices = ['|','/','-','\\']
+    for x in range (0,4):  
+        current_line = line_choices[x]
+        b = f'{text} {current_line}'
+        print (b, end="\r")
+        time.sleep(sleep_time)
+
+
+# i really love these little one or two liner functions bc they're just so simple and easy to code and they always work first try and they're just like little happy encouragement pills i can make whenever im sick of seeing error messages. - j :)
 def shutdown():
     print("[BOT]: Shutting Down.")
     exit()
@@ -54,6 +71,22 @@ def restart():
     print()
     os.execv(sys.executable, ['python'] + sys.argv)
 
+def gay():
+    randomGay = random.randint(0,100)
+    print(f"[BOT]: You are {randomGay}% gay.")
+
+def furry():
+    print(f'[BOT]: You are {random.randint(0,100)}% furry.')
+
+def love():
+    print('Whos the first person?\n')
+    person_one = input()
+    print('Whos the second person?\n')
+    person_two = input()
+    
+    compute_line(sleep_time=0.5)
+
+    print(f'{person_one} and {person_two} are {random.randint(0,100)}% compatible.')
 
 def say():
     print("[BOT]: What's the message?")
@@ -70,7 +103,54 @@ def dice():
     result = random.randint(1,6)
     print(f"[BOT]: The dice rolled {result}.")
 
+def idea():
+    print('if you have any ideas for this program, please message me on Discord at:\nDuzo#1010\n:)')
+
 def rps():
+    choices = ['rock','paper','scissors']
+
+    print("[BOT]: Player 1, Pick rock, paper or scissors.")
+    player_one = input().lower()
+    i = 0
+    while i < 25:
+        print('\n')
+        i = i + 1
+    
+    print("[BOT]: Player 2, Pick rock, paper or scissors.")
+    player_two = input().lower()
+
+
+
+    if player_one not in choices or player_two not in choices:
+        print(f"[BOT]: One choice is incorrect. Please choose between Rock, Paper and Scissors.")
+        return
+    else:
+        if player_two == player_one:
+            print(f"[BOT]: Tie. {player_one} vs {player_two}")
+            return
+        elif player_two == "rock":
+            if player_one == "paper":
+                print(f"[BOT]: Player one wins! {player_one} vs {player_two}")
+                return
+            elif player_one == "scissors":
+                print(f"[BOT]: Player two wins! {player_one} vs {player_two}")
+                return
+        elif player_two == "paper":
+            if player_one == "scissors":
+                print(f"[BOT]: Player one wins! {player_one} vs {player_two}")
+                return
+            elif player_one == "rock":
+                print(f"[BOT]: Player two wins! {player_one} vs {player_two}")
+                return
+        elif player_two == "scissors":
+            if player_one == "rock":
+                print(f"[BOT]: Player one wins! {player_one} vs {player_two}")
+                return
+            elif player_one == "paper":
+                print(f"[BOT]: Player two wins! {player_one} vs {player_two}")
+                return
+
+def rps_bot():
     choices = ['rock','paper','scissors']
 
     print("[BOT]: Pick rock, paper or scissors.")
@@ -121,9 +201,6 @@ def nguess():
         print(f"[BOT]: You lose. {correctNumber} was the correct number.")
         return
 
-def gay():
-    randomGay = random.randint(0,100)
-    print(f"[BOT]: You are {randomGay}% gay.")
 
 def yn():
     responses = ['Yes','No']
@@ -210,11 +287,11 @@ def spaceweights():
                 planetList = planetList + val + "\n"
             return print(f"Please provide a valid planet:\n{planetList}")
 
-        planetWeight = round(spaceWeights_planets[chosen_planet] * weight)
+        planetWeight = spaceWeights_planets[chosen_planet] * weight
         
         print(f'Your weight on {chosen_planet} is {planetWeight}')
-    except:
-        print(Exception)
+    except Exception as error:
+        print(f'An error occured!\n{error}')
 
     
     
@@ -250,7 +327,8 @@ def help():
     print("Say: Repeats your message")
     print("CoinFlip: Flips a coin")
     print("Dice: Rolls a dice")
-    print("RPS: Play rock paper scissors")
+    print("RPS: Play rock paper scissors against someone")
+    print("rps_bot: Play rock paper scissors against the code")
     print("NGuess: Play a number guessing game")
     print("Gay: Tells you how gay you are")
     print("YN: Answers your questions with Yes or No")
@@ -262,6 +340,9 @@ def help():
     print("Help: This command")
     print('E: e')
     print('api_test: if it crashes when you run this then u got no requests library installed.')
+    print('idea - give me ideas please')
+    print('love: see how compatible two people are')
+    print('furry: how much of a furry are you?')
 
 
 def main():
