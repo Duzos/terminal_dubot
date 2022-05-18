@@ -4,6 +4,7 @@ import sys
 import random
 import json
 import time
+from urllib import request, response
 
 #When its run
 with open('data.json','r') as f:
@@ -30,9 +31,9 @@ else:
 
 #Defining Functions:
 
-# If you can't use the requests library, remove all the code below:
+# If you can't use the non-built in libraries, remove all the code below:
 import requests
-def api_test():
+def truth():
     url = 'https://api.truthordarebot.xyz/v1/truth'
     choice = requests.get(url).json()
 
@@ -42,32 +43,96 @@ def api_test():
     choiceQuestion = choice['question']
 
     print(f'{choiceType}\n{choiceQuestion}\nID: {choiceID} | Rating: {choiceRating}')
+
+def dog():
+    try:
+        url = 'https://dog.ceo/api/breeds/image/random'
+        responseAPI = requests.get(url).json()
+        picture = responseAPI['message']
+
+        request.urlretrieve(picture, 'dog.png')
+        compute_line('Pulling from API',sleep_time=0.25,spin_amount=2)
+        os.system('dog.png')
+        print('Enjoy the doggos! ')
+    except Exception as error:
+        print(error)
+
+def dog():
+    try:
+        url = 'https://dog.ceo/api/breeds/image/random'
+        responseAPI = requests.get(url).json()
+        picture = responseAPI['message']
+
+        request.urlretrieve(picture, 'dog.png')
+        compute_line('Pulling from API',sleep_time=0.25,spin_amount=2)
+        os.system('dog.png')
+        print('Enjoy the doggos! ')
+    except Exception as error:
+        print(error)
+
+# i honestly dont know why i made this command and i regret it so much, but there you go creepos.
+def nsfw():
+    try:
+        print('What tags do you want to search for (seperate with space, leave empty for random)')
+        tags = input()
+        if tags == None:
+            nsfwJson = requests.get("http://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1").json()
+        else:
+            tags_seperated = "+".join( tags.split() )
+            nsfwJson = requests.get("http://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&tags="+tags_seperated).json()
+        chosenKey = random.choice(nsfwJson)
+        picture = chosenKey['file_url']
+        picture_extension = picture[len(picture) - 3 :].lower()
+        if picture_extension == 'peg':
+            picture_extension = 'jpeg'
+
+        request.urlretrieve(picture, f'nsfw.{picture_extension}')
+        compute_line('Pulling from API',sleep_time=0.25,spin_amount=2)
+        os.system(f'nsfw.{picture_extension}')
+        print('Enjoy the nsfw images, freak. ')
+    except Exception as error:
+        print(error)
+
 # ok stop removing code before it breaks ty
 
 # some neat little computing animations, dunno why i added them but i like them and they look cool so yeah. if you want to add them anywhere yourself just call the function.
-def compute_dots(text: str = 'Computing',sleep_time: str = 1):
-    for x in range (0,5):  
+
+# text - the text to show
+# sleep_time - how long per dot/line appearing
+# dot_amount - the amount of dots til its done
+# spin_amount - the amount of times to spin 
+
+def compute_dots(text: str = 'Computing',sleep_time: str = 1,dot_amount: int = 5):
+    for x in range (0,dot_amount):  
         b = f"{text}" + "." * x
         print (b, end="\r")
         time.sleep(sleep_time)
 
-def compute_line(text: str = 'Computing',sleep_time: str = 1):
+def compute_line(text: str = 'Computing',sleep_time: str = 1,spin_amount: int = 1):
     line_choices = ['|','/','-','\\']
-    for x in range (0,4):  
-        current_line = line_choices[x]
-        b = f'{text} {current_line}'
-        print (b, end="\r")
-        time.sleep(sleep_time)
+    while spin_amount != 0:
+        for x in range (0,4):  
+            current_line = line_choices[x]
+            b = f'{text} {current_line}'
+            print (b, end="\r")
+            time.sleep(sleep_time)
+        spin_amount = spin_amount - 1
+        
 
 
 # i really love these little one or two liner functions bc they're just so simple and easy to code and they always work first try and they're just like little happy encouragement pills i can make whenever im sick of seeing error messages. - j :)
 def shutdown():
-    print("[BOT]: Shutting Down.")
+    compute_line('Shutting Down',0.25,2)
     exit()
+
 
 def restart():
     print()
+    clear()
     os.execv(sys.executable, ['python'] + sys.argv)
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def gay():
     randomGay = random.randint(0,100)
@@ -82,7 +147,7 @@ def love():
     print('Whos the second person?\n')
     person_two = input()
     
-    compute_line(sleep_time=0.5)
+    compute_line(sleep_time=0.5,spin_amount=2)
 
     print(f'{person_one} and {person_two} are {random.randint(0,100)}% compatible.')
 
@@ -107,12 +172,13 @@ def idea():
 def list_data():
     firstRun = data['firstRun']
     username = data['name']
-    compute_line('Processing data',1) # this doesnt do anything except do the animation i like
-    print('Data:')
+    compute_line('Loading Data',1) # this doesnt do anything except do the animation i like
+    print('Data:         ')
     compute_dots('First run : ',0.25) # once again, nothing just i like it
     print(f'First run : {firstRun}')
     compute_dots('Name : ',0.5) # you get the idea by now hopefully
     print(f'Name : {username}')
+
 
 def rps():
     choices = ['rock','paper','scissors']
@@ -309,6 +375,7 @@ def changename():
     data["name"] = newName
     with open('data.json', 'w') as f:
         json.dump(data, f, indent=4)
+    compute_dots('Changing name',0.1,3)
     print("[BOT]: Complete.")
 
 def datareset():
@@ -320,6 +387,7 @@ def datareset():
         data["name"] = None
         with open('data.json','w') as f:
             json.dump(data, f, indent=4)
+        compute_line('Deleting data',0.75)
         print("[BOT]: Data reset complete.")
         restart()
     else:
@@ -347,10 +415,12 @@ def help():
     print("DataReset: Resets all your data.")
     print("Help: This command")
     print('E: e')
-    print('api_test: if it crashes when you run this then u got no requests library installed.')
+    print('truth: get a random truth')
     print('idea - give me ideas please')
     print('love: see how compatible two people are')
     print('furry: how much of a furry are you?')
+    print('nsfw : yup')
+    print('dog: aww cute doggos :DD')
 
 
 def main():
